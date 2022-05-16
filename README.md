@@ -5,14 +5,14 @@ The project can be run by following these steps:
 1. composer install
 2. change the store function in page "RegisteredUserController.php" to:
  
-    public function store(Request $request, CreatesNewUsers $creator): RegisterResponse 
-    { 
-        $user = $creator->create($request->all());
-        $user->attachRole('User');
-        event(new Registered($user));
-        $this->guard->login($user);
-        return app(RegisterResponse::class);
-    }
+        public function store(Request $request, CreatesNewUsers $creator): RegisterResponse 
+        { 
+            $user = $creator->create($request->all());
+            $user->attachRole('User');
+            event(new Registered($user));
+            $this->guard->login($user);
+            return app(RegisterResponse::class);
+        }
     
 // this page in path" ..vendor\laravel\fortify\src\Http\Controllers\RegisteredUserController.php"
 
