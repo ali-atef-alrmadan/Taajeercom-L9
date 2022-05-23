@@ -19,7 +19,13 @@ class OffcesworkersController extends Controller
      */
     public function index()
     {
-        return view('Admin_Offices.AddWorker');
+        $Employee=Offcesworkers::join('offices','offices.id', '=', 'offcesworkers.office_id')
+        ->join('users','users.id', '=', 'offcesworkers.user_id')
+        ->where('offices.admin_id','=',[Auth::user()->id])
+        ->select('offcesworkers.id','users.name','users.email','users.phone_number','offcesworkers.Salary')
+        ->get();
+        
+        return view('Admin_Offices.AddWorker',compact('Employee'));
     }
 
     /**
@@ -40,25 +46,23 @@ class OffcesworkersController extends Controller
      */
     public function store(StoreOffcesworkersRequest $request)
     {
-        $users= User::where('email','like','%'.$request->email.'%')->select('id')->first();
-        
-        
         $Office = offices::join('users', 'users.id', '=', 'offices.admin_id')
         ->where('offices.admin_id', '=', [Auth::user()->id])
         ->select('offices.id')
         ->first();
+        // dd($Office);
+        $User=User::where('email','=',$request->email)
+        ->select("id")->first();
+        Offcesworkers::create([
+            'office_id'=> $Office->id,
+            'user_id'=>$User->id,
+            'salary'=>$request->salary,
+        ]);
+        DB::update('update role_user set role_id = ? where user_id = ?', ['3',$User->id]);
 
-        $Offcesworker= new Offcesworkers();
-        $Offcesworker->user_id=$users->id;
-        $Offcesworker->office_id=$Office->id;
-        $Offcesworker->save();
-
-        $users=DB::update('update role_user set role_id = ? where user_id = ?', ['3',$users->id]);
-
+        return redirect()->back()->withErrors(['Employee has been added successfully.']);
 
         // dd($Offcesworker);
-
-        return redirect()->back()->withErrors(['Done add employee']);
     }
 
     /**

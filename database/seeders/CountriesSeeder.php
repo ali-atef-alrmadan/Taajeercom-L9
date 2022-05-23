@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class CountriesSeeder extends Seeder
 {
@@ -14,6 +15,8 @@ class CountriesSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('countries')->insert([
+            'country' => 'JORDAN',
+        ]);
     }
 }

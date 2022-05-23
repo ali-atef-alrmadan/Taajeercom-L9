@@ -15,7 +15,10 @@
                     <x-jet-label for="brand" value="{{ __('brand') }}" />
                     <x-jet-input id="brand" class="block mt-1 w-full" type="text" name="brand" :value="old('brand')" required autofocus autocomplete="brands" />
                 </div>
-
+                <div>
+                    <x-jet-label for="type" value="{{ __('type') }}" />
+                    <x-jet-input id="type" class="block mt-1 w-full" type="text" name="type" :value="old('type')" required autofocus autocomplete="type" />
+                </div>
                 <div>
                     <x-jet-label for="model" value="{{ __('model') }}" />
                     <x-jet-input id="model" class="block mt-1 w-full" type="text" name="model" :value="old('model')" required autofocus autocomplete="model" />

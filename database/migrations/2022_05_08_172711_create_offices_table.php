@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger("admin_id");
             $table->unsignedBigInteger("location_id");
             $table->string("name");
-            $table->integer("phone_number");
+            $table->string("phone_number");
             $table->string("description",2500);
             $table->boolean("status")->default(0);
             $table->timestamps();

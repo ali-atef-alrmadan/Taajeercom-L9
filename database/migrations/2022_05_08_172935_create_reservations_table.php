@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("vehicles_id");
+            $table->unsignedBigInteger("location_id");
             $table->dateTime("start date");
             $table->dateTime("end date");
             $table->timestamps();
@@ -24,7 +25,11 @@ return new class extends Migration
 
             $table->foreign('user_id')->on('users')->references('id')
             ->onUpdate('cascade')->onDelete('cascade');
+
             $table->foreign('vehicles_id')->on('vehicles')->references('id')
+            ->onUpdate('cascade')->onDelete('cascade');
+            
+            $table->foreign('location_id')->on('locations')->references('id')
             ->onUpdate('cascade')->onDelete('cascade');
 
         });

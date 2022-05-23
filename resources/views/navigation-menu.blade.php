@@ -17,29 +17,40 @@
                     </x-jet-nav-link>
                 </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('AddToOffice') }}" :active="request()->routeIs('AddToOffice')">
-                        {{ __('AddToOffice') }}
-                    </x-jet-nav-link>
-                </div>
+                @if (Auth::user()->hasRole('User'))
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('AddToOffice') }}" :active="request()->routeIs('AddToOffice')">
+                            {{ __('AddToOffice') }}
+                        </x-jet-nav-link>
+                    </div>
+                @endif
 
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('Addvehicle') }}" :active="request()->routeIs('Addvehicle')">
-                        {{ __('Addvehicle') }}
-                    </x-jet-nav-link>
-                </div>
+                @if (Auth::user()->hasRole('Worker'))
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('Addvehicle') }}" :active="request()->routeIs('Addvehicle')">
+                            {{ __('Addvehicle') }}
+                        </x-jet-nav-link>
+                    </div>
+                    @endif
 
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('AddWorker') }}" :active="request()->routeIs('AddWorker')">
-                        {{ __('Add Worker') }}
-                    </x-jet-nav-link>
-                </div>
+                    @if (Auth::user()->hasRole('Office-Admin'))
+                    
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('AddWorker') }}" :active="request()->routeIs('AddWorker')">
+                            {{ __('Add Worker') }}
+                        </x-jet-nav-link>
+                    </div>
+                    @endif
 
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('AcceptforOffices') }}" :active="request()->routeIs('AcceptforOffices')">
-                        {{ __('Accept for Offices') }}
-                    </x-jet-nav-link>
-                </div>
+                    @if (Auth::user()->hasRole('Admin'))
+                    
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('AcceptforOffices') }}" :active="request()->routeIs('AcceptforOffices')">
+                            {{ __('Accept for Offices') }}
+                        </x-jet-nav-link>
+                    </div>
+                    @endif
+            
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">           

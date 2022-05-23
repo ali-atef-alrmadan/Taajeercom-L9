@@ -14,8 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('offcesworkers', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("office_id");
+            $table->integer("Salary");
             $table->timestamps();
             $table->foreign('user_id')->on('users')->references('id')
             ->onUpdate('cascade')->onDelete('cascade');
@@ -23,7 +25,7 @@ return new class extends Migration
             $table->foreign('office_id')->on('offices')->references('id')
             ->onUpdate('cascade')->onDelete('cascade');
 
-            $table->primary(['user_id', 'office_id']);
+            
         });
     }
 
