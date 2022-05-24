@@ -8,6 +8,7 @@
             <div class="flex items-center gap-x-4">
                 <div>
                     <x-link href="{{ route('home') }}" content="Home" url="/"/>
+                
                 </div>
             </div>
         @endauth
@@ -16,6 +17,7 @@
             @auth
                 <div>
                     <x-link href="{{ route('dashboard') }}" content="{{ auth()->user()->name }}" url="dashboard"/>
+                        
                 </div>
                 <div>
                     <form action="{{ route('logout') }}" method="post">
@@ -28,12 +30,15 @@
             @guest
                 <div>
                     <x-link href="{{ route('home') }}" content="Home" url="/"/>
+                    
                 </div>
                 <div>
                     <x-link href="{{ route('login') }}" content="Login" url="login"/>
+                   
                 </div>
                 <div>
                     <x-link href="{{ route('register') }}" content="Register" url="register"/>
+                    {{-- <a>register</a> --}}
                 </div>
             @endguest
 
