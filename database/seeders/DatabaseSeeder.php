@@ -14,14 +14,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(LaratrustSeeder::class);
-        $this->call(UserSeeder::class);
-        $this->call(CitiesSeeder::class);
-        $this->call(CountriesSeeder::class);
-        $this->call(LocationsSeeder::class);
-        
-        $this->call(OfficesSeeder::class);
-        $this->call(OffcesworkersSeeder::class);
+        $this->call([
+            LaratrustSeeder::class,
+            UserSeeder::class,
+            CitiesSeeder::class,
+            CountriesSeeder::class,
+            LocationsSeeder::class,
+            LocationsSeeder::class,
+            OfficesSeeder::class,
+            OffcesworkersSeeder::class,
+        ]);
 
         // \App\Models\User::factory(10)->create();
     }

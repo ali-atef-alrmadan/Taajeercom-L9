@@ -1,8 +1,27 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Add Vehicles') }}
-        </h2>
+        <div class="flex">
+            <h2 class="text-lg  leading-tight">
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:inline">
+                    <x-jet-nav-link href="{{ route('Viewvehicle') }}" :active="request()->routeIs('Viewvehicle')">
+                        {{ __('View Vehicle') }}
+                    </x-jet-nav-link>
+                </div>
+            
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:inline">
+                        <x-jet-nav-link href="{{ route('Addvehicle') }}" :active="request()->routeIs('Addvehicle')">
+                            {{ __('Add Vehicle') }}
+                        </x-jet-nav-link>
+                    </div>
+            
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:inline">
+                    <x-jet-nav-link href="{{ route('EditVehicle') }}" :active="request()->routeIs('EditVehicle')">
+                        {{ __('Edit Vehicle') }}
+                    </x-jet-nav-link>
+                </div>
+                
+            </h2>
+        </div>
     </x-slot>
 
     <div class="py-12">

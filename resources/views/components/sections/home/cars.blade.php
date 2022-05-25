@@ -34,7 +34,7 @@
         @endforeach
     </div>
 
-    <div class="w-2/3 p-4 mx-auto">
+    {{-- <div class="w-2/3 p-4 mx-auto">
         {{ $vehicles->links() }}
-    </div>
+    </div> --}}
 </div>

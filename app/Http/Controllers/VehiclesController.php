@@ -22,6 +22,87 @@ class VehiclesController extends Controller
         return view('Workers.Addvehicle');
     }
 
+    public function View()
+    {
+        $MyOffice=Offcesworkers::where('user_id','=',[Auth::user()->id])
+        ->select("office_id")->first();
+
+        $Vehicles=Vehicles::join('offices','offices.id', '=', 'vehicles.owner_id')
+        ->join('vehiclebrands','vehiclebrands.id', '=', 'vehicles.brand_id')
+        ->join('vehicletypes','vehicletypes.id', '=', 'vehicles.type_id')
+        ->join('locations','locations.id', '=', 'offices.location_id')
+        ->join('countries','countries.id', '=','locations.country_id' )
+        ->join('cities','cities.id', '=', 'locations.city_id')
+        ->where('owner_id','=',$MyOffice->office_id)
+        ->select('*')
+        ->get();
+        
+        return view('Workers.ViewVehicle',compact('Vehicles'));
+    }
+    
+public function edit(Vehicles $vehicles)
+    {
+        $MyOffice=Offcesworkers::where('user_id','=',[Auth::user()->id])
+        ->select("office_id")->first();
+
+        $Vehicles=Vehicles::join('offices','offices.id', '=', 'vehicles.owner_id')
+        ->join('vehiclebrands','vehiclebrands.id', '=', 'vehicles.brand_id')
+        ->join('vehicletypes','vehicletypes.id', '=', 'vehicles.type_id')
+        ->join('locations','locations.id', '=', 'offices.location_id')
+        ->join('countries','countries.id', '=','locations.country_id' )
+        ->join('cities','cities.id', '=', 'locations.city_id')
+        ->where('owner_id','=',$MyOffice->office_id)
+        ->select('*')
+        ->get();
+        
+        return view('Workers.EditVehicle',compact('Vehicles'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\UpdateVehiclesRequest  $request
+     * @param  \App\Models\Vehicles  $vehicles
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateVehiclesRequest $request, Vehicles $vehicles)
+    {
+        
+        if($request->file('picture_path')==true)
+        {
+            // save Image in database and storge Image
+        $IMG_File=$request->file('picture_path');
+        $IMG_filename=time().'.'.$IMG_File->getClientOriginalExtension();
+        $IMG_File->storeAs('public/picture_path',$IMG_filename);
+        Vehicles::where('id',$request->id)
+        ->update([
+        'picture_path' =>$IMG_filename ,
+        ]);
+        }
+
+        
+        Vehicles::where('id',$request->id)
+        ->update([
+            'model' =>$request->model,
+            'year' =>$request->year,
+            'color' =>$request->color,
+            'capacity' =>$request->capacity,
+            'license_number' =>$request->license_number,
+            'price' =>$request->price,
+            'description' =>$request->description,
+            'available' =>$request->available,
+            'picture_path' =>$IMG_filename,
+        ]);
+        
+        return redirect()->back()->withErrors(['Worker Updated.']);
+    
+    }
+
+
+    public function DeleteVehicle(UpdateVehiclesRequest $request, Vehicles $vehicles)
+    {
+        //
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -94,23 +175,7 @@ class VehiclesController extends Controller
      * @param  \App\Models\Vehicles  $vehicles
      * @return \Illuminate\Http\Response
      */
-    public function edit(Vehicles $vehicles)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateVehiclesRequest  $request
-     * @param  \App\Models\Vehicles  $vehicles
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateVehiclesRequest $request, Vehicles $vehicles)
-    {
-        //
-    }
-
+    
     /**
      * Remove the specified resource from storage.
      *

@@ -26,12 +26,13 @@
                 @endif
 
                 @if (Auth::user()->hasRole('Worker'))
+                    
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{ route('Addvehicle') }}" :active="request()->routeIs('Addvehicle')">
-                            {{ __('Addvehicle') }}
+                        <x-jet-nav-link href="{{ route('Viewvehicle') }}" :active="request()->routeIs('Viewvehicle')">
+                            {{ __('Vehicle') }}
                         </x-jet-nav-link>
                     </div>
-                    @endif
+                @endif
 
                     @if (Auth::user()->hasRole('Office-Admin'))
                     

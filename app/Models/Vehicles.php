@@ -20,9 +20,7 @@ class Vehicles extends Model
         'license_number',
         'price',
         'description',
-        'attashment',
         'available',
-        'hidden',
         'picture_path',
         ];
 }

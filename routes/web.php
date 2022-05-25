@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('home');
 // });
-Route::get('/home',[HomeController::class,'index'])->name('home');
+Route::get('/',[HomeController::class,'index'])->name('home');
 
     Route::middleware(['auth:sanctum','role:User|Worker|Office-Admin|Admin',config('jetstream.auth_session'),'verified'])->group(function () {
 
@@ -54,6 +54,12 @@ Route::get('/home',[HomeController::class,'index'])->name('home');
         Route::get('Addvehicle',[VehiclesController::class,'index'])->name('Addvehicle');
         Route::post('Addvehicle',[VehiclesController::class,'store'])->name('storeAddvehicle');
 
+        Route::get('Viewvehicle',[VehiclesController::class,'View'])->name('Viewvehicle');
+
+        Route::get('EditVehicle',[VehiclesController::class,'edit'])->name('EditVehicle');
+        Route::post('SaveEditVehicle',[VehiclesController::class,'update'])->name('SaveEditVehicle');
+        Route::post('DeleteVehicle',[VehiclesController::class,'DeleteVehicle'])->name('DeleteVehicle');
+
     });
     
     Route::middleware(['auth:sanctum','role:User',config('jetstream.auth_session'),'verified'])->group(function () {
@@ -67,10 +73,6 @@ Route::get('/home',[HomeController::class,'index'])->name('home');
 
     
     });
-
-
-
-
 
 
 
