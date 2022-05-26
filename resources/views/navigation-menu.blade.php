@@ -5,9 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-jet-application-mark class="block h-9 w-auto" />
-                    </a>
+                    <x-logo/>
                 </div>
 
                 <!-- Navigation Links -->
@@ -17,15 +15,11 @@
                     </x-jet-nav-link>
                 </div>
 
-                @if (Auth::user()->hasRole('User'))
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{ route('AddToOffice') }}" :active="request()->routeIs('AddToOffice')">
-                            {{ __('AddToOffice') }}
-                        </x-jet-nav-link>
-                    </div>
-                @endif
+                {{-- @if (Auth::user()->hasRole('User'))
+                    
+                @endif --}}
 
-                @if (Auth::user()->hasRole('Worker'))
+                @if (Auth::user()->hasRole('Office-Admin|Worker'))
                     
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{ route('Viewvehicle') }}" :active="request()->routeIs('Viewvehicle')">
@@ -38,7 +32,7 @@
                     
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{ route('AddWorker') }}" :active="request()->routeIs('AddWorker')">
-                            {{ __('Add Worker') }}
+                            {{ __('Worker') }}
                         </x-jet-nav-link>
                     </div>
                     @endif

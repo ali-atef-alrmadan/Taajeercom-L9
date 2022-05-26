@@ -1,7 +1,11 @@
-<x-app-layout>
+@extends('layouts.user.app')
+
+@section('title', 'Home')
+
+@section('content')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Add to office') }}
+            {{ __('Create office') }}
         </h2>
     </x-slot>
 
@@ -12,7 +16,7 @@
 
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg mx-1 my-3">
                 
-            <form class="md:w-100 w-full" method="POST" action="{{route("storeAddToOffice")}}" enctype="multipart/form-data" >
+            <form class="md:w-100 p-4 w-full flex flex-col gap-y-4" method="POST" action="{{route("storeAddToOffice")}}" enctype="multipart/form-data" >
                 @csrf
                 <div>
                     <x-jet-label for="name" value="{{ __('name') }}" class="p-3"/>
@@ -53,4 +57,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

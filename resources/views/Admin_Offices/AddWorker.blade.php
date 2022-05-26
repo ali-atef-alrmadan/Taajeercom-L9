@@ -1,7 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Add Worker') }}
+        <h2 class="text-lg  leading-tight">
+            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:inline">
+                <x-jet-nav-link href="{{ route('AddWorker') }}" :active="request()->routeIs('AddWorker')">
+                    {{ __('Add Worker') }}
+                </x-jet-nav-link>
+            </div>
+        
+            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:inline">
+                <x-jet-nav-link href="{{ route('EditWorker') }}" :active="request()->routeIs('EditWorker')">
+                    {{ __('Edit Worker') }}
+                </x-jet-nav-link>
+            </div>
         </h2>
     </x-slot>
 
@@ -14,11 +24,6 @@
                     <div>
                         <x-jet-label for="email" value="{{ __('email') }}" class="p-3"/>
                         <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="email" />
-                    </div>
-
-                    <div>
-                        <x-jet-label for="salary" value="{{ __('Salary') }}" class="p-3"/>
-                        <x-jet-input id="salary" class="block mt-1 w-full" type="text" name="salary" :value="old('salary')" required autofocus autocomplete="salary" />
                     </div>
 
                     <div class="flex items-center justify-end mt-4">
@@ -45,7 +50,6 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
-                                    <th>Salary</th>
                                 </tr>
                                 @foreach($Employee as $item)
                                     <tr class="tableBody border-b border-gray-300">
@@ -62,10 +66,7 @@
                                         <td class="px-3">
                                             {{$item->phone_number}}
                                         </td>
-                                        <td class="px-3">
-                                            {{$item->Salary}}
-                                        </td>
-                                        
+                                    </tr>
                                 @endforeach
                             </table>
                         </div> 

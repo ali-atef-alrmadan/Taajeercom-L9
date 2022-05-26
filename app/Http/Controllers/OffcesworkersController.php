@@ -7,6 +7,7 @@ use App\Http\Requests\StoreOffcesworkersRequest;
 use App\Http\Requests\UpdateOffcesworkersRequest;
 use App\Models\offices;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -22,7 +23,7 @@ class OffcesworkersController extends Controller
         $Employee=Offcesworkers::join('offices','offices.id', '=', 'offcesworkers.office_id')
         ->join('users','users.id', '=', 'offcesworkers.user_id')
         ->where('offices.admin_id','=',[Auth::user()->id])
-        ->select('offcesworkers.id','users.name','users.email','users.phone_number','offcesworkers.Salary')
+        ->select('offcesworkers.id','users.name','users.email','users.phone_number')
         ->get();
         
         return view('Admin_Offices.AddWorker',compact('Employee'));
@@ -50,15 +51,20 @@ class OffcesworkersController extends Controller
         ->where('offices.admin_id', '=', [Auth::user()->id])
         ->select('offices.id')
         ->first();
-        // dd($Office);
-        $User=User::where('email','=',$request->email)
+        
+        $user=User::where('email','=',$request->email)
         ->select("id")->first();
-        Offcesworkers::create([
-            'office_id'=> $Office->id,
-            'user_id'=>$User->id,
-            'salary'=>$request->salary,
-        ]);
-        DB::update('update role_user set role_id = ? where user_id = ?', ['3',$User->id]);
+        
+        // Offcesworkers::create([
+        //     'office_id' => $Office->id,
+        //     'user_id' => $user->id,
+        // ]);
+        $Offcesworkers= new Offcesworkers();
+        $Offcesworkers->office_id = $Office->id;
+        $Offcesworkers->user_id = $user->id;
+        $Offcesworkers->save();
+        // dd($Offcesworkers);
+        DB::update('update role_user set role_id = ? where user_id = ?', ['3',$user->id]);
 
         return redirect()->back()->withErrors(['Employee has been added successfully.']);
 
@@ -82,9 +88,20 @@ class OffcesworkersController extends Controller
      * @param  \App\Models\Offcesworkers  $offcesworkers
      * @return \Illuminate\Http\Response
      */
-    public function edit(Offcesworkers $offcesworkers)
+    public function edit()
     {
-        //
+        $Employee=Offcesworkers::join('offices','offices.id', '=', 'offcesworkers.office_id')
+        ->join('users','users.id', '=', 'offcesworkers.user_id')
+        ->where('offices.admin_id','=',[Auth::user()->id])
+        ->select('offcesworkers.id','users.name','users.email','users.phone_number')
+        ->get();
+        
+        return view('Admin_Offices.DeleteWorker',compact('Employee'));
+    }
+
+    public function DeleteWorker(Request $request)
+    {
+        
     }
 
     /**
@@ -96,7 +113,8 @@ class OffcesworkersController extends Controller
      */
     public function update(UpdateOffcesworkersRequest $request, Offcesworkers $offcesworkers)
     {
-        //
+        Offcesworkers::find($request->id)->delete();
+        return redirect()->back()->withErrors(['Worker Deleted.']);
     }
 
     /**

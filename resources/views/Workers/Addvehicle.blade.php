@@ -28,19 +28,25 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 {{--  --}}
-            <form class="md:w-100 w-full" name="uplode_vehicle" method="post" action="{{route('storeAddvehicle')}}"enctype="multipart/form-data">
+            <form class="md:w-100 p-4 m-2 w-full" name="uplode_vehicle" method="post" action="{{route('storeAddvehicle')}}"enctype="multipart/form-data">
                 @csrf
                 <div>
                     <x-jet-label for="brand" value="{{ __('brand') }}" />
-                    <x-jet-input id="brand" class="block mt-1 w-full" type="text" name="brand" :value="old('brand')" required autofocus autocomplete="brands" />
+                    <select data-placeholder="Make" id="brand" class="block rounded-lg mt-1 w-full" name="brand" tabindex="2" id="make"  :value="old('brand')" required autofocus autocomplete="brands">
+                        @include('components.Car.Brand')
+                    </select>
                 </div>
                 <div>
                     <x-jet-label for="type" value="{{ __('type') }}" />
-                    <x-jet-input id="type" class="block mt-1 w-full" type="text" name="type" :value="old('type')" required autofocus autocomplete="type" />
+                    <select data-placeholder="Trim" id="type" class="block rounded-lg mt-1 w-full" name="type" :value="old('type')" required autofocus autocomplete="type" tabindex="4">
+                        @include('components.Car.Type')
+                    </select>
                 </div>
                 <div>
                     <x-jet-label for="model" value="{{ __('model') }}" />
-                    <x-jet-input id="model" class="block mt-1 w-full" type="text" name="model" :value="old('model')" required autofocus autocomplete="model" />
+                    <select class="block rounded-lg mt-1 w-full" name="model" id="model" :value="old('model')" required autofocus autocomplete="model" >
+                        @include('components.Car.Model')
+                    </select>
                 </div>
 
                 <div>
@@ -50,8 +56,10 @@
 
                 <div>
                     <x-jet-label for="color" value="{{ __('color') }}" />
-                    <x-jet-input id="color" class="block mt-1 w-full" type="text" name="color" :value="old('color')" required autofocus autocomplete="color" />
-                </div>
+                    <select name="color" id="color" class="block rounded-lg mt-1 w-full"  :value="old('color')" required autofocus autocomplete="color">
+                        @include('components.Car.Color')
+                    </select>
+                    </div>
 
                 <div>
                     <x-jet-label for="capacity" value="{{ __('capacity') }}" />
@@ -60,7 +68,7 @@
 
                 <div>
                     <x-jet-label for="license number" value="{{ __('license number') }}" />
-                    <x-jet-input id="license number" class="block mt-1 w-full" type="text" name="license number" :value="old('license number')" required autofocus autocomplete="license number" />
+                    <x-jet-input id="license number" class="block mt-1 w-full" type="text" name="license_number" :value="old('license_number')" required autofocus autocomplete="license_number" />
                 </div>
 
                 <div>
@@ -72,7 +80,7 @@
                     <x-jet-label for="description" value="{{ __('description') }}" />
                     <x-jet-input id="description" class="block mt-1 w-full" type="text" name="description" :value="old('description')" required autofocus autocomplete="description" />
                 </div>
-                <div class="border border-gray-400 flex  p-3 rounded-md">
+                <div class="border border-gray-400 flex mt-2 p-3 rounded-md">
 
                     <x-jet-label for="location" value="{{ __('location') }}" class="p-3 text-center border-r border-gray-400 " />
 
@@ -88,8 +96,8 @@
                     <x-jet-label for="picture" value="{{ __('picture') }}" />
                     <x-jet-input id="picture" class="block mt-1 w-full" type="file" name="picture" :value="old('picture')" required autofocus autocomplete="picture" />
                 </div>
-                <div class="flex items-center justify-end mt-4">
-                    <x-jet-button class="ml-4">
+                <div class="flex text-center items-center justify-end mt-4 ">
+                    <x-jet-button class=" m-2 w-full ">
                         {{ __('Add vehicle') }}
                     </x-jet-button>
                 </div>

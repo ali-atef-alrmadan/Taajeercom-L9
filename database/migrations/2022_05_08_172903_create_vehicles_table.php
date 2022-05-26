@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string("license_number");
             $table->integer("price");
             $table->string("description",2500);
-            $table->boolean("available")->default(1);
+            $table->string("available")->default("Available");
             $table->string("picture_path");
             $table->timestamps();
 

@@ -54,31 +54,30 @@
                         </tr>
                         @foreach($Vehicles as $item)
                             <tr class="tableBody">
-                                
-                                    <td class="px-3 flex">
+                                <td class="px-3 flex">
                                         <form method="POST" class="inline" action="{{route("DeleteVehicle")}}" enctype="multipart/form-data">
                                             @csrf
                                             <input type="text" name="id" value="{{$item->id}}" hidden>
                                             <input class="sm:inline w-20 p-2 rounded-lg inline-block bg-red-500 text-white hover:bg-red-600 cursor-pointer" type="submit" name="submit" value="Delete">
                                         </form>
-                                        <form method="POST" class="inline" action="{{route("SaveEditVehicle")}}" enctype="multipart/form-data" class="w-full">
-                                            @csrf
-                                            <div class="space-y-2 flex">
-                                                <input type="text" name="id" value="{{$item->id}}" hidden>
-                                                <input class="sm:inline w-20 p-2 rounded-lg inline-block bg-green-500 text-white hover:bg-green-600 cursor-pointer" type="submit" name="submit" value="Save">
-                                            </div>
+                                <form method="POST" class="inline" action="{{route("SaveEditVehicle")}}" enctype="multipart/form-data" class="w-full">
+                                        @csrf
+                                        <div class="space-y-2 flex">
+                                            <input type="text" name="id" value="{{$item->id}}" hidden>
+                                            <input class="sm:inline w-20 p-2 rounded-lg inline-block bg-green-500 text-white hover:bg-green-600 cursor-pointer" type="submit" name="submit" value="Save">
+                                        </div>
                                         
+                                </td>
+                                    <td class="px-3">
+                                        <input type="text" readonly name="brand" value="{{$item->brand}}" class="p-2 rounded-lg border  cursor-pointer form-control">
                                     </td>
                                     <td class="px-3">
-                                        <input type="text" name="brand" value="{{$item->brand}}" class="p-2 rounded-lg border  cursor-pointer form-control">
-                                    </td>
-                                    <td class="px-3">
-                                        <input type="text" name="type" value="{{$item->type}}" class="p-2 rounded-lg border  cursor-pointer form-control">
+                                        <input type="text" readonly name="type" value="{{$item->type}}" class="p-2 rounded-lg border  cursor-pointer form-control">
                                     </td>
                                     <td class="px-3">
                                         <select id="model" name="model" class="p-2 rounded-lg border  cursor-pointer form-control">
                                             <option value="{{$item->model}}" selected >{{$item->model}}</option>
-                                        
+                                            @include('components.Car.Model')
                                         </select>
                                     </td>
                                     <td class="px-3">
@@ -87,7 +86,7 @@
                                     <td class="px-3">
                                         <select id="color" name="color" class="p-2 rounded-lg border  cursor-pointer form-control">
                                             <option value="{{$item->color}}" selected >{{$item->color}}</option>
-                                            
+                                            @include('components.Car.Color')
                                         </select>
                                     </td>
                                     
@@ -119,8 +118,8 @@
                                             <option value="NotAvailable" >NotAvailable</option>
                                         </select>
                                     </td>
-                                </tr>    
-                            </form>
+                                </form>
+                            </tr> 
                         @endforeach
                     </table>
                 @endif

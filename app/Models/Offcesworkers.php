@@ -12,6 +12,5 @@ class Offcesworkers extends Model
     protected $fillable = ["
     'user_id',
     'office_id',
-    'Salary',
     "];
 }

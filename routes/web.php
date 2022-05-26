@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OfficesController;
 use App\Http\Controllers\VehiclesController;
 use App\Http\Controllers\OffcesworkersController;
+use App\Http\Controllers\ReservationsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,10 +24,11 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::get('/',[HomeController::class,'index'])->name('home');
 
+Route::get('AddToOffice',[OfficesController::class,'index'])->name('AddToOffice');
+
     Route::middleware(['auth:sanctum','role:User|Worker|Office-Admin|Admin',config('jetstream.auth_session'),'verified'])->group(function () {
 
         Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
-    
     });
     Route::middleware(['auth:sanctum','role:Admin',config('jetstream.auth_session'),'verified'])->group(function () {
     
@@ -43,11 +45,15 @@ Route::get('/',[HomeController::class,'index'])->name('home');
         Route::get('AddWorker',[OffcesworkersController::class,'index'])->name('AddWorker');
         Route::post('AddWorker',[OffcesworkersController::class,'store'])->name('storeAddWorker');
 
-    
+        Route::get('EditWorker',[OffcesworkersController::class,'edit'])->name('EditWorker');
+        
+        // Route::post('DeleteWorker',[OffcesworkersController::class,'update'])->name('DeleteWorker');
+        Route::post('DeWorker',[OffcesworkersController::class,'update'])->name('storeDeWorker');
+
     
     });
     
-    Route::middleware(['auth:sanctum','role:Worker',config('jetstream.auth_session'),'verified'])->group(function () {
+    Route::middleware(['auth:sanctum','role:Office-Admin|Worker',config('jetstream.auth_session'),'verified'])->group(function () {
     
             // Add vehicle
 
@@ -66,14 +72,19 @@ Route::get('/',[HomeController::class,'index'])->name('home');
         // Route::get('WorkerView',[WorkerController::class,'show'])->name('WorkerView');
         // Route::get('/search',[WorkerController::class, 'search'])->name('search');
         // Add To Office
-        Route::get('AddToOffice',[OfficesController::class,'index'])->name('AddToOffice');
+        
         Route::post('AddToOffice',[OfficesController::class,'store'])->name('storeAddToOffice');
+
+        Route::get('Reservation',[ReservationsController::class,'index'])->name('Reservation');
+        Route::post('AcceptReservation',[ReservationsController::class,'store'])->name('AcceptReservation');
     
        
 
     
     });
+    Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
+    Route::get('AddToOffice',[OfficesController::class,'index'])->name('AddToOffice');
 
-
+});
 
 

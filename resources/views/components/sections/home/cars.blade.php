@@ -16,14 +16,16 @@
                             <li><span class="font-bold mr-2">Color:</span>{{ $vehicle->color }}</li>
                             <li><span class="font-bold mr-2">Capacity:</span>{{ $vehicle->capacity }}</li>
                             <li><span class="font-bold mr-2">Office:</span><a class="hover:text-blue-500 transition-colors" href="{{ $vehicle->owner}}">{{ $vehicle->name }}</a></li>
-                            <li>Location:{{$vehicle->city}} {{$vehicle->address_description}}</a></li>
+                            <li><span class="font-bold mr-2">Location:</span>{{$vehicle->city}} {{$vehicle->address_description}}</a></li>
                         </ul>
                     </div>
                     <div class="mt-4">
                         <a href="" class="text-blue-500">see more</a>
                     </div>
                     <div class="absolute bottom-0 right-0 mr-2 mb-2">
-                        <form action="">
+                        <form action="{{route('AcceptReservation')}}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <input type="text" value="{{$vehicle->id}}" name="vehicle_id" hidden>
                             <input type="submit" value="Reservation" name="make-reservation" class="bg-blue-500 hover:bg-blue-700 transition-colors text-white p-2 rounded cursor-pointer">
                         </form>
                     </div>

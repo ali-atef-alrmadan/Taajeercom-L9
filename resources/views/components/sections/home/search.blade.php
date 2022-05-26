@@ -48,7 +48,7 @@
                     <select class="p-2 rounded-md w-[12rem]" name="location" id="location">
                         <option value="0"> Empty </option>
                         @foreach($cities as $city)
-                            <option value="{{ $city->id }}"> {{  $city->name }}</option>
+                            <option value="{{ $city->id }}"> {{  $city->city }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -65,7 +65,7 @@
                     <select class="p-2 rounded-md w-[12rem]" name="brand" id="brand">
                         <option value="0"> Empty </option>
                         @foreach($brands as $brand)
-                            <option value="{{ $brand->id }}"> {{  $brand->name }}</option>
+                            <option value="{{ $brand->id }}"> {{  $brand->brand }}</option>
                         @endforeach
                     </select>
                 </div>

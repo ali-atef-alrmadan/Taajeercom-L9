@@ -18,7 +18,6 @@ class OffcesworkersSeeder extends Seeder
         DB::table('offcesworkers')->insert([
             'office_id' => 1,
             'user_id' => 3,
-            'Salary' => 500,
         ]);
     }
 }

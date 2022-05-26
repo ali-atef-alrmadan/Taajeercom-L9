@@ -5,7 +5,9 @@
             <x-logo/>
         @endguest
         @auth
+            <x-logo/>
             <div class="flex items-center gap-x-4">
+                
                 <div>
                     <x-link href="{{ route('home') }}" content="Home" url="/"/>
                 
@@ -15,6 +17,7 @@
 
         <div class="flex justify-end items-center gap-x-6">
             @auth
+            
                 <div>
                     <x-link href="{{ route('dashboard') }}" content="{{ auth()->user()->name }}" url="dashboard"/>
                         

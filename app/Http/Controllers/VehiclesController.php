@@ -6,6 +6,7 @@ use App\Models\Vehicles;
 use App\Http\Requests\StoreVehiclesRequest;
 use App\Http\Requests\UpdateVehiclesRequest;
 use App\Models\Offcesworkers;
+use App\Models\offices;
 use App\Models\Vehiclebrand;
 use App\Models\Vehicletype;
 use Illuminate\Support\Facades\Auth;
@@ -24,38 +25,74 @@ class VehiclesController extends Controller
 
     public function View()
     {
-        $MyOffice=Offcesworkers::where('user_id','=',[Auth::user()->id])
-        ->select("office_id")->first();
+        if (Auth::user()->hasRole('Office-Admin'))
+        {
+            $MyOffice=offices::where('admin_id','=',[Auth::user()->id])
+                ->select("id")->first();
 
-        $Vehicles=Vehicles::join('offices','offices.id', '=', 'vehicles.owner_id')
-        ->join('vehiclebrands','vehiclebrands.id', '=', 'vehicles.brand_id')
-        ->join('vehicletypes','vehicletypes.id', '=', 'vehicles.type_id')
-        ->join('locations','locations.id', '=', 'offices.location_id')
-        ->join('countries','countries.id', '=','locations.country_id' )
-        ->join('cities','cities.id', '=', 'locations.city_id')
-        ->where('owner_id','=',$MyOffice->office_id)
-        ->select('*')
-        ->get();
+                $Vehicles=Vehicles::join('offices','offices.id', '=', 'vehicles.owner_id')
+                ->join('vehiclebrands','vehiclebrands.id', '=', 'vehicles.brand_id')
+                ->join('vehicletypes','vehicletypes.id', '=', 'vehicles.type_id')
+                ->join('locations','locations.id', '=', 'offices.location_id')
+                ->join('countries','countries.id', '=','locations.country_id' )
+                ->join('cities','cities.id', '=', 'locations.city_id')
+                ->where('owner_id','=',$MyOffice->office_id)
+                ->select('*')
+                ->get();
+                
+                return view('Workers.ViewVehicle',compact('Vehicles'));
+        }
+        elseif (Auth::user()->hasRole('Worker'))
+        {
+            $MyOffice=Offcesworkers::where('user_id','=',[Auth::user()->id])
+                ->select("office_id")->first();
+
+                $Vehicles=Vehicles::join('offices','offices.id', '=', 'vehicles.owner_id')
+                ->join('vehiclebrands','vehiclebrands.id', '=', 'vehicles.brand_id')
+                ->join('vehicletypes','vehicletypes.id', '=', 'vehicles.type_id')
+                ->join('locations','locations.id', '=', 'offices.location_id')
+                ->join('countries','countries.id', '=','locations.country_id' )
+                ->join('cities','cities.id', '=', 'locations.city_id')
+                ->where('owner_id','=',$MyOffice->office_id)
+                ->select('*')
+                ->get();
+                
+                return view('Workers.ViewVehicle',compact('Vehicles'));
+        }
         
-        return view('Workers.ViewVehicle',compact('Vehicles'));
     }
     
 public function edit(Vehicles $vehicles)
     {
-        $MyOffice=Offcesworkers::where('user_id','=',[Auth::user()->id])
-        ->select("office_id")->first();
+        if (Auth::user()->hasRole('Office-Admin'))
+        {
+            $MyOffice=offices::where('admin_id','=',[Auth::user()->id])
+                ->select("id")->first();
+            
+            $Vehicles=Vehicles::join('offices','offices.id', '=', 'vehicles.owner_id')
+            ->join('vehiclebrands','vehiclebrands.id', '=', 'vehicles.brand_id')
+            ->join('vehicletypes','vehicletypes.id', '=', 'vehicles.type_id')
+            ->where('owner_id','=',$MyOffice->office_id)
+            ->select('vehiclebrands.brand','vehicletypes.type','vehicles.id','vehicles.model','vehicles.year','vehicles.color','vehicles.capacity','vehicles.license_number','vehicles.price','vehicles.description','vehicles.picture_path','vehicles.available',)
+            ->get();
+            
+            return view('Workers.EditVehicle',compact('Vehicles'));
+        }
 
-        $Vehicles=Vehicles::join('offices','offices.id', '=', 'vehicles.owner_id')
-        ->join('vehiclebrands','vehiclebrands.id', '=', 'vehicles.brand_id')
-        ->join('vehicletypes','vehicletypes.id', '=', 'vehicles.type_id')
-        ->join('locations','locations.id', '=', 'offices.location_id')
-        ->join('countries','countries.id', '=','locations.country_id' )
-        ->join('cities','cities.id', '=', 'locations.city_id')
-        ->where('owner_id','=',$MyOffice->office_id)
-        ->select('*')
-        ->get();
-        
-        return view('Workers.EditVehicle',compact('Vehicles'));
+        elseif (Auth::user()->hasRole('Worker'))
+        {
+            $MyOffice=Offcesworkers::where('user_id','=',[Auth::user()->id])
+            ->select("office_id")->first();
+
+            $Vehicles=Vehicles::join('offices','offices.id', '=', 'vehicles.owner_id')
+            ->join('vehiclebrands','vehiclebrands.id', '=', 'vehicles.brand_id')
+            ->join('vehicletypes','vehicletypes.id', '=', 'vehicles.type_id')
+            ->where('owner_id','=',$MyOffice->office_id)
+            ->select('vehiclebrands.brand','vehicletypes.type','vehicles.id','vehicles.model','vehicles.year','vehicles.color','vehicles.capacity','vehicles.license_number','vehicles.price','vehicles.description','vehicles.picture_path','vehicles.available',)
+            ->get();
+            
+            return view('Workers.EditVehicle',compact('Vehicles'));
+        }
     }
 
     /**
@@ -65,9 +102,9 @@ public function edit(Vehicles $vehicles)
      * @param  \App\Models\Vehicles  $vehicles
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateVehiclesRequest $request, Vehicles $vehicles)
+    public function update(UpdateVehiclesRequest $request)
     {
-        
+        // dd($request);
         if($request->file('picture_path')==true)
         {
             // save Image in database and storge Image
@@ -91,17 +128,17 @@ public function edit(Vehicles $vehicles)
             'price' =>$request->price,
             'description' =>$request->description,
             'available' =>$request->available,
-            'picture_path' =>$IMG_filename,
         ]);
         
-        return redirect()->back()->withErrors(['Worker Updated.']);
+        return redirect()->back()->withErrors(['Vehicles Updated.']);
     
     }
 
 
     public function DeleteVehicle(UpdateVehiclesRequest $request, Vehicles $vehicles)
     {
-        //
+        Vehicles::find($request->id)->delete();
+        return redirect()->back()->withErrors(['Vehicles Deleted.']);
     }
     /**
      * Show the form for creating a new resource.
@@ -121,41 +158,82 @@ public function edit(Vehicles $vehicles)
      */
     public function store(StoreVehiclesRequest $request)
     {
+        if (Auth::user()->hasRole('Office-Admin'))
+        {
+            // save Image in database and storge Image
+            $IMG_File=$request->file('picture');
+            $IMG_filename=time().'.'.$IMG_File->getClientOriginalExtension();
+            $IMG_File->storeAs('public/images_Vehicle',$IMG_filename);
+
+            $MyOffice=offices::where('admin_id','=',[Auth::user()->id])
+                ->select("id")->first();
+
+            $brand=new Vehiclebrand();
+            $brand->brand=$request->brand;
+            $brand->save();
+            
+            $type=new Vehicletype();
+            $type->type=$request->type;
+            $type->save();
+
+
+            Vehicles::create([
+                'owner_id' =>$MyOffice->id,
+                'brand_id' =>$brand->id,
+                'type_id' =>$type->id,
+                'model' =>$request->model,
+                'year' =>$request->year,
+                'color' =>$request->color,
+                'capacity' =>$request->capacity,
+                'license_number' =>$request->license_number,
+                'price' =>$request->price,
+                'description' =>$request->description,
+                'available' =>'Available',
+                'picture_path' =>$IMG_filename,
+            ]);
+
+            // dd($request);
+            return redirect()->back()->withErrors(['Done Add Vehicle.']);
+        }
+        elseif (Auth::user()->hasRole('Worker'))
+        {
         // save Image in database and storge Image
-        $IMG_File=$request->file('picture');
-        $IMG_filename=time().'.'.$IMG_File->getClientOriginalExtension();
-        $IMG_File->storeAs('public/images_Vehicle',$IMG_filename);
+            $IMG_File=$request->file('picture');
+            $IMG_filename=time().'.'.$IMG_File->getClientOriginalExtension();
+            $IMG_File->storeAs('public/images_Vehicle',$IMG_filename);
 
-        $owner=Offcesworkers::select("office_id")
-        ->where('user_id','=',[Auth::user()->id])
-        ->first();
+            $owner=Offcesworkers::select("office_id")
+            ->where('user_id','=',[Auth::user()->id])
+            ->first();
 
-        $brand=new Vehiclebrand();
-        $brand->brand=$request->brand;
-        $brand->save();
-        
-        $type=new Vehicletype();
-        $type->type=$request->type;
-        $type->save();
+            $brand=new Vehiclebrand();
+            $brand->brand=$request->brand;
+            $brand->save();
+            
+            $type=new Vehicletype();
+            $type->type=$request->type;
+            $type->save();
 
 
-        Vehicles::create([
-            'owner_id' =>$owner->office_id,
-            'brand_id' =>$brand->id,
-            'type_id' =>$type->id,
-            'model' =>$request->model,
-            'year' =>$request->year,
-            'color' =>$request->color,
-            'capacity' =>$request->capacity,
-            'license_number' =>$request->license_number,
-            'price' =>$request->price,
-            'description' =>$request->description,
-            'available' =>1,
-            'picture_path' =>$IMG_filename,
-        ]);
+            Vehicles::create([
+                'owner_id' =>$owner->office_id,
+                'brand_id' =>$brand->id,
+                'type_id' =>$type->id,
+                'model' =>$request->model,
+                'year' =>$request->year,
+                'color' =>$request->color,
+                'capacity' =>$request->capacity,
+                'license_number' =>$request->license_number,
+                'price' =>$request->price,
+                'description' =>$request->description,
+                'available' =>'Available',
+                'picture_path' =>$IMG_filename,
+            ]);
 
-        // dd($request);
-        return redirect()->back()->withErrors(['Done Add Vehicle.']);
+            // dd($request);
+            return redirect()->back()->withErrors(['Done Add Vehicle.']);
+
+        }
     }
 
     /**
