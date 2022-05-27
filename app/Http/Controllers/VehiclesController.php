@@ -36,7 +36,7 @@ class VehiclesController extends Controller
                 ->join('locations','locations.id', '=', 'offices.location_id')
                 ->join('countries','countries.id', '=','locations.country_id' )
                 ->join('cities','cities.id', '=', 'locations.city_id')
-                ->where('owner_id','=',$MyOffice->office_id)
+                ->where('owner_id','=',$MyOffice->id)
                 ->select('*')
                 ->get();
                 
@@ -72,7 +72,7 @@ public function edit(Vehicles $vehicles)
             $Vehicles=Vehicles::join('offices','offices.id', '=', 'vehicles.owner_id')
             ->join('vehiclebrands','vehiclebrands.id', '=', 'vehicles.brand_id')
             ->join('vehicletypes','vehicletypes.id', '=', 'vehicles.type_id')
-            ->where('owner_id','=',$MyOffice->office_id)
+            ->where('owner_id','=',$MyOffice->id)
             ->select('vehiclebrands.brand','vehicletypes.type','vehicles.id','vehicles.model','vehicles.year','vehicles.color','vehicles.capacity','vehicles.license_number','vehicles.price','vehicles.description','vehicles.picture_path','vehicles.available',)
             ->get();
             
