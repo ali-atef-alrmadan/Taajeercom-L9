@@ -76,8 +76,8 @@ Route::get('AddToOffice',[OfficesController::class,'index'])->name('AddToOffice'
         Route::post('AddToOffice',[OfficesController::class,'store'])->name('storeAddToOffice');
 
         Route::get('Reservation',[ReservationsController::class,'index'])->name('Reservation');
-        Route::post('AcceptReservation',[ReservationsController::class,'store'])->name('AcceptReservation');
-    
+        Route::post('AcceptReservation',[ReservationsController::class,'show'])->name('AcceptReservation');
+        Route::post('storeAcceptReservation',[ReservationsController::class,'store'])->name('storeAcceptReservation');
        
 
     

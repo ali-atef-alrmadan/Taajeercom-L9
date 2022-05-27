@@ -20,7 +20,10 @@
 
         var FinalPrice= Price*Difference_In_Days;
         //To display the final no. of days (result)
-        document.getElementById("FinalPrice").innerHTML =FinalPrice;
+        // document.getElementById("FinalPrice").innerHTML =FinalPrice;
+
+        const element = document.getElementById("FinalPrice");
+        element.getAttributeNode("value").value = FinalPrice;
 
 
     }
@@ -61,35 +64,39 @@
                         <a href="" class="text-blue-500">see more</a>
                     </div>
                     
-                    <div class="absolute bottom-0 right-0 mr-2 mb-2">
-                        <form action="{{route('AcceptReservation')}}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <input type="text" value="{{$vehicle->id}}" name="vehicle_id" hidden>
-                            <input type="text" value="" name="FinalPrice" id="FinalPrice">
-                            <input type="submit" value="Reservation" name="make-reservation" class="bg-blue-500 hover:bg-blue-700 transition-colors text-white p-2 rounded cursor-pointer">
-                        </form>
-                    </div>
+                   
                 </div>
-
+                    
             </div>
-                {{--Date-start--}}
-                <div>
-                    <div class="text-gray-800 font-bold text-2xl">
-                        <span>Date</span>
-                    </div>
-                    <div class="flex gap-x-4">
-                        <div class="flex flex-col">
-                            <label for="date-from">From</label>
-                            <input class="p-2 rounded-md w-[12rem]" type="date" id="date-from" name="date-from">
+                
+
+                <div class="">
+                    {{-- <button onclick="calculatePrice()">Click me</button> --}}
+                    <form action="{{route('storeAcceptReservation')}}" method="POST" enctype="multipart/form-data">
+                        @csrf 
+                        {{--Date-start--}}
+                        <div>
+                            <div class="text-gray-800 font-bold text-2xl">
+                                <span>Date</span>
+                            </div>
+                            <div class="flex gap-x-4">
+                                <div class="flex flex-col">
+                                    <label for="date-from">From</label>
+                                    <input class="p-2 rounded-md w-[12rem]" type="date" id="date-from" name="date-from">
+                                </div>
+                                <div class="flex flex-col">
+                                    <label for="date-to">To</label>
+                                    <input class="p-2 rounded-md w-[12rem]" type="date" id="date-to" name="date-to" onchange="calculatePrice()">
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex flex-col">
-                            <label for="date-to">To</label>
-                            <input class="p-2 rounded-md w-[12rem]" type="date" id="date-to" name="date-to">
-                        </div>
-                    </div>
+                        {{--Date-end--}}
+                         
+                        <input type="text" value="{{$vehicle->id}}" name="vehicle_id" hidden>
+                        <input type="text" value="" name="FinalPrice" id="FinalPrice" readonly>
+                        <input type="submit" value="Reservation" class="bg-blue-500 hover:bg-blue-700 transition-colors text-white p-2 rounded cursor-pointer">
+                    </form>
                 </div>
-                {{--Date-end--}}
-                <button onclick="calculatePrice()">Click me</button>
         @endforeach
         </div>
     </div>
