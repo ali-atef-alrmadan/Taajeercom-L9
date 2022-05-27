@@ -2,11 +2,14 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Vehicletype;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class VehicletypeSeeder extends Seeder
 {
+    public $types = ['RENEGADE', 'SPORT', 'UNLIMITED', 'LIMITED'];
+
     /**
      * Run the database seeds.
      *
@@ -14,6 +17,11 @@ class VehicletypeSeeder extends Seeder
      */
     public function run()
     {
-        //
+        foreach ($this->types as $type) {
+            Vehicletype::create([
+                'name' => $type,
+                'slug' => Str::slug($type),
+            ]);
+        }
     }
 }

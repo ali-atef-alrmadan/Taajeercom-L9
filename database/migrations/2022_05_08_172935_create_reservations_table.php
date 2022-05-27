@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("vehicles_id");
-            $table->unsignedBigInteger("location_id");
-            $table->dateTime("start date");
-            $table->dateTime("end date");
+            $table->string("Price");
+            $table->dateTime("Start_date");
+            $table->dateTime("End_date");
             $table->timestamps();
 
 
@@ -29,8 +29,6 @@ return new class extends Migration
             $table->foreign('vehicles_id')->on('vehicles')->references('id')
             ->onUpdate('cascade')->onDelete('cascade');
             
-            $table->foreign('location_id')->on('locations')->references('id')
-            ->onUpdate('cascade')->onDelete('cascade');
 
         });
     }

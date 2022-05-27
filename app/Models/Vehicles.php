@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Vehicles extends Model
 {
     use HasFactory;
+
+    protected $table = 'vehicles';
 
     protected $fillable = [
         'owner_id',
@@ -23,4 +26,5 @@ class Vehicles extends Model
         'available',
         'picture_path',
         ];
+
 }
