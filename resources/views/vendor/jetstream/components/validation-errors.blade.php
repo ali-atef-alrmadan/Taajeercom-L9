@@ -9,6 +9,12 @@
                 || $error == 'Vehicles Updated.'
                 || $error == 'Vehicles Deleted.'
                 || $error == 'Employee has been added successfully.'
+                || $error == 'Done add offices'
+                || $error == 'Done Reservations.'
+                || $error == 'Save Reservation.'
+                || $error == 'Vehicles Updated.'
+                || $error == 'Done Add Vehicle.'
+
                 )
                 
                 <div class="bg-green-500 text-white p-5 rounded-lg"> 
