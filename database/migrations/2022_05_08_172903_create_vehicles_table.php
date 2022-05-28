@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger("brand_id");
             $table->unsignedBigInteger("type_id");
             $table->string("model");
-            $table->date("year");
+            $table->integer("year");
             $table->string("color");
             $table->string("capacity");
             $table->string("license_number");

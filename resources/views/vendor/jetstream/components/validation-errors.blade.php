@@ -7,7 +7,6 @@
             @if($error == 'Done add employee'
                 || $error == 'The request to establish the office is under approval.'
                 || $error == 'Vehicles Updated.'
-                || $error == 'Vehicles Deleted.'
                 || $error == 'Employee has been added successfully.'
                 || $error == 'Done add offices'
                 || $error == 'Done Reservations.'

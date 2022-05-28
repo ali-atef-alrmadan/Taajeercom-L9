@@ -30,7 +30,7 @@ class VehiclesFactory extends Factory
             'brand_id' => $this->faker->numberBetween(1, Vehiclebrand::all()->count()),
             'type_id' => $this->faker->numberBetween(1, Vehicletype::all()->count()),
             'model' => $this->faker->text(20),
-            'year' => $this->faker->date(),
+            'year' => $this->faker->numberBetween(1940,2022),
             'color' => $this->faker->colorName,
             'capacity' => $this->faker->numberBetween(1, 6),
             'license_number' => $this->faker->numberBetween(1,50000),

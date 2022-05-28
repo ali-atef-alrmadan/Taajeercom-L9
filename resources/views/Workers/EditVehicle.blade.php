@@ -60,7 +60,7 @@
                                             <input type="text" name="id" value="{{$item->id}}" hidden>
                                             <input class="sm:inline w-20 p-2 rounded-lg inline-block bg-red-500 text-white hover:bg-red-600 cursor-pointer" type="submit" name="submit" value="Delete">
                                         </form>
-                                <form method="POST" class="inline" action="{{route("SaveEditVehicle")}}" enctype="multipart/form-data" class="w-full">
+                                    <form method="POST" class="inline" action="{{route("SaveEditVehicle")}}" enctype="multipart/form-data" class="w-full">
                                         @csrf
                                         <div class="space-y-2 flex">
                                             <input type="text" name="id" value="{{$item->id}}" hidden>
@@ -81,7 +81,10 @@
                                         </select>
                                     </td>
                                     <td class="px-3">
-                                        <input type="date" name="year" value="{{$item->year}}" class="p-2 rounded-lg border  cursor-pointer form-control">
+                                        <select id="year" name="year" class="p-2 rounded-lg border  cursor-pointer form-control">
+                                            <option value="{{$item->year}}" selected >{{$item->year}}</option>
+                                            @include('components.Car.Year')
+                                        </select>
                                     </td>
                                     <td class="px-3">
                                         <select id="color" name="color" class="p-2 rounded-lg border  cursor-pointer form-control">

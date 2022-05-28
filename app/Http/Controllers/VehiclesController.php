@@ -20,7 +20,9 @@ class VehiclesController extends Controller
      */
     public function index()
     {
-        return view('Workers.Addvehicle');
+        $brands=Vehiclebrand::all();
+        $Type=Vehicletype::all();
+        return view('Workers.Addvehicle',compact("brands","Type"));
     }
 
     public function View()
