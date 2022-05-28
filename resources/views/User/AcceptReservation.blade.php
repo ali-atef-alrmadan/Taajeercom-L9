@@ -82,11 +82,11 @@
                             <div class="flex gap-x-4">
                                 <div class="flex flex-col">
                                     <label for="date-from">From</label>
-                                    <input class="p-2 rounded-md w-[12rem]" type="date" id="date-from" name="date-from">
+                                    <input class="p-2 rounded-md w-[12rem]" type="date" id="date-from" name="Start_date">
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="date-to">To</label>
-                                    <input class="p-2 rounded-md w-[12rem]" type="date" id="date-to" name="date-to" onchange="calculatePrice()">
+                                    <input class="p-2 rounded-md w-[12rem]" type="date" id="date-to" name="End_date" onchange="calculatePrice()">
                                 </div>
                             </div>
                         </div>

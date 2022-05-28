@@ -113,9 +113,15 @@
                                     </td>
                                     <td class="px-3">
                                         <select id="available" name="available" class="p-2 rounded-lg border  cursor-pointer form-control">
-                                            <option value="{{$item->available}}" selected >{{$item->available}}</option>
-                                            <option value="Available" >Available</option>
-                                            <option value="NotAvailable" >NotAvailable</option>
+                                            <option value="{{$item->available}}" selected >
+                                                @if ($item->available ===1)
+                                                Available
+                                                @else
+                                                NotAvailable
+                                                @endif
+                                            </option>
+                                            <option value="1" >Available</option>
+                                            <option value="0" >NotAvailable</option>
                                         </select>
                                     </td>
                                 </form>

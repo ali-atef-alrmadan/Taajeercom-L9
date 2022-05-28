@@ -3,8 +3,10 @@
 namespace Database\Factories;
 
 use App\Models\locations;
+use App\Models\offices;
 use App\Models\User;
 use App\Models\Vehiclebrand;
+use App\Models\Vehicles;
 use App\Models\Vehicletype;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,22 +20,24 @@ class VehiclesFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model=Vehicles::class;
+
     public function definition(): array
     {
         return [
+
+            'owner_id' => $this->faker->numberBetween(1, offices::all()->count()),
+            'brand_id' => $this->faker->numberBetween(1, Vehiclebrand::all()->count()),
+            'type_id' => $this->faker->numberBetween(1, Vehicletype::all()->count()),
+            'model' => $this->faker->text(20),
+            'year' => $this->faker->date(),
             'color' => $this->faker->colorName,
             'capacity' => $this->faker->numberBetween(1, 6),
-            'model' => $this->faker->text(20),
-            'year' => $this->faker->year,
-            'type_id' => $this->faker->numberBetween(1, Vehicletype::all()->count()),
-            'brand_id' => $this->faker->numberBetween(1, Vehiclebrand::all()->count()),
-            'owner_id' => $this->faker->numberBetween(1, User::all()->count()),
-            'location_id' => $this->faker->numberBetween(1, locations::all()->count()),
-            'price' => $this->faker->numberBetween(1, 50),
-            'picture_path' => $this->faker->imageUrl,
-            'description' => $this->faker->text(50),
             'license_number' => $this->faker->numberBetween(1,50000),
-            'available' => $this->faker->boolean
+            'price' => $this->faker->numberBetween(1, 50),
+            'description' => $this->faker->text(50) ,
+            'available' => $this->faker->boolean,
+            'picture_path' => $this->faker->imageUrl,
         ];
     }
 }

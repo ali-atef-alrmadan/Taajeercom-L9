@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("vehicles_id");
             $table->string("Price");
+            $table->string("Status");
             $table->dateTime("Start_date");
             $table->dateTime("End_date");
             $table->timestamps();

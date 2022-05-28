@@ -2,58 +2,57 @@
     <x-slot name="header">
         <div class="flex">
             <h2 class="text-lg  leading-tight">
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:inline">
-                    <x-jet-nav-link href="{{ route('Viewvehicle') }}" :active="request()->routeIs('Viewvehicle')">
-                        {{ __('View Vehicle') }}
-                    </x-jet-nav-link>
-                </div>
-            
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:inline">
-                        <x-jet-nav-link href="{{ route('Addvehicle') }}" :active="request()->routeIs('Addvehicle')">
-                            {{ __('Add Vehicle') }}
-                        </x-jet-nav-link>
-                    </div>
-            
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:inline">
-                    <x-jet-nav-link href="{{ route('EditVehicle') }}" :active="request()->routeIs('EditVehicle')">
-                        {{ __('Edit Vehicle') }}
-                    </x-jet-nav-link>
-                </div>
-                
+                Decision Reservation
             </h2>
         </div>
     </x-slot>
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg mx-1 my-3">
-        
             <div class="w-full h-100 overflow-y-auto" >
-                <div class="tableContanier">
+                <div class="tableContanier text-center">
                     <div class="mb-5">
                         <x-jet-validation-errors class="mb-4" />
                     </div>
-                    <div class="tableContent  text-center max-w-6xl">
-                        @if ($Vehicles->isempty())
+                    <div class="tableContent">
+                        @if ($Reservations->isempty())
                             <h1 class="msg text-bold">
-                                This Office Have Not Vehicles.
+                                You have not any reservations.
                             </h1>
                         @else
-                        <div class="px-4">
+                        <div class="px-4 ">
                             <table class="w-full">
                                 <tr class="tableHead px-4">
+                                    <th>Decision</th>
                                     <th>brand</th>
                                     <th>type</th>
                                     <th>model</th>
                                     <th>year</th>
                                     <th>color</th>
                                     <th>capacity</th>
-                                    <th>license_number</th>
-                                    <th>price per day</th>
-                                    <th>description</th>
-                                    <th>available</th>
-                                    <th>picture_path</th>
+                                    <th>offices</th>
+                                    <th>Price</th>
+                                    <th>locations</th>
+                                    <th>Status</th>
+                                    <th>Start_date</th>
+                                    <th>End_date</th>
                                 </tr>
-                                @foreach($Vehicles as $item)
+                                @foreach($Reservations as $item)
                                     <tr class="tableBody border-b border-gray-300">
+                                        <td class="px-3 flex">
+                                            <form method="POST" class="inline" action="{{route("DeleteReservation")}}" enctype="multipart/form-data">
+                                                @csrf
+                                                <input type="text" name="id" value="{{$item->vehicles_id}}" hidden>
+                                                <input type="text" name="id" value="{{$item->id}}" hidden>
+                                                <input class="sm:inline w-20 p-2 rounded-lg inline-block bg-red-500 text-white hover:bg-red-600 cursor-pointer" type="submit" name="submit" value="Delete">
+                                            </form>
+                                            <form method="POST" class="inline" action="{{route("SaveReservation")}}" enctype="multipart/form-data" class="w-full">
+                                                @csrf
+                                                <div class="space-y-2 flex">
+                                                    <input type="text" name="id" value="{{$item->id}}" hidden>
+                                                    <input class="sm:inline w-20 p-2 rounded-lg inline-block bg-green-500 text-white hover:bg-green-600 cursor-pointer" type="submit" name="submit" value="Save">
+                                                </div>
+                                            </form>                                            
+                                        </td>
                                         <td class="px-3">
                                             {{$item->brand}}
                                         </td>
@@ -79,19 +78,28 @@
                                             </div>
                                         </td>
                                         <td class="px-3">
-                                            {{$item->license_number}}
+                                            {{$item->name}}
                                         </td>
                                         <td class="px-3">
-                                            {{$item->price}}
+                                            {{$item->Price}}
                                         </td>
                                         <td class="px-3">
-                                            {{$item->description}}
+                                            {{$item->city}} {{$item->address_description}} 
                                         </td>
                                         <td class="px-3">
-                                            {{$item->available}}
+                                            @if ($item->Status ==='0')
+                                                On request
+                                            @elseif($item->Status ==='1')
+                                                Done
+                                            @else
+                                                rejecte
+                                            @endif
                                         </td>
                                         <td class="px-3">
-                                            {{$item->picture_path}}
+                                            {{$item->Start_date}}
+                                        </td>
+                                        <td class="px-3">
+                                            {{$item->End_date}}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -101,7 +109,6 @@
                     </div>
                 </div>
             </div>
-            
         </div>
     </div>
 </x-app-layout>

@@ -19,8 +19,7 @@ class VehicletypeSeeder extends Seeder
     {
         foreach ($this->types as $type) {
             Vehicletype::create([
-                'name' => $type,
-                'slug' => Str::slug($type),
+                'type' => $type,
             ]);
         }
     }

@@ -17,6 +17,7 @@ class Reservations extends Model
         "Price",
         "vehicles_id",
         "user_id",
+        "Status"
     ];
 
 

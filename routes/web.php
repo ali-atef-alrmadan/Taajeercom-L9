@@ -66,6 +66,10 @@ Route::get('AddToOffice',[OfficesController::class,'index'])->name('AddToOffice'
         Route::post('SaveEditVehicle',[VehiclesController::class,'update'])->name('SaveEditVehicle');
         Route::post('DeleteVehicle',[VehiclesController::class,'DeleteVehicle'])->name('DeleteVehicle');
 
+        Route::get('DecisionReservation',[ReservationsController::class,'DecisionReservation'])->name('DecisionReservation');
+        Route::post('SaveReservation',[ReservationsController::class,'SaveReservation'])->name('SaveReservation');
+        Route::post('DeleteReservation',[ReservationsController::class,'DeleteReservation'])->name('DeleteReservation');
+
     });
     
     Route::middleware(['auth:sanctum','role:User',config('jetstream.auth_session'),'verified'])->group(function () {
@@ -75,15 +79,18 @@ Route::get('AddToOffice',[OfficesController::class,'index'])->name('AddToOffice'
         
         Route::post('AddToOffice',[OfficesController::class,'store'])->name('storeAddToOffice');
 
-        Route::get('Reservation',[ReservationsController::class,'index'])->name('Reservation');
-        Route::post('AcceptReservation',[ReservationsController::class,'show'])->name('AcceptReservation');
-        Route::post('storeAcceptReservation',[ReservationsController::class,'store'])->name('storeAcceptReservation');
-       
+        
 
     
     });
     Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
-    Route::get('AddToOffice',[OfficesController::class,'index'])->name('AddToOffice');
+        
+        Route::get('AddToOffice',[OfficesController::class,'index'])->name('AddToOffice');
+
+        Route::get('Reservation',[ReservationsController::class,'index'])->name('Reservation');
+        Route::post('AcceptReservation',[ReservationsController::class,'show'])->name('AcceptReservation');
+        Route::post('storeAcceptReservation',[ReservationsController::class,'store'])->name('storeAcceptReservation');
+       
 
 });
 

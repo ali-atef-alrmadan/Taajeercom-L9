@@ -26,6 +26,11 @@
                             {{ __('Vehicle') }}
                         </x-jet-nav-link>
                     </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('DecisionReservation') }}" :active="request()->routeIs('DecisionReservation')">
+                            {{ __('Decision Reservation') }}
+                        </x-jet-nav-link>
+                    </div>
                 @endif
 
                     @if (Auth::user()->hasRole('Office-Admin'))
@@ -46,6 +51,11 @@
                     </div>
                     @endif
             
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('Reservation') }}" :active="request()->routeIs('Reservation')">
+                            {{ __('Reservation') }}
+                        </x-jet-nav-link>
+                    </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">           

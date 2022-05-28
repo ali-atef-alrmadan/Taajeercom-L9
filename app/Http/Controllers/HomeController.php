@@ -26,7 +26,8 @@ class HomeController extends Controller
             ->join('countries','countries.id', '=','locations.country_id' )
             ->join('cities','cities.id', '=', 'locations.city_id')
             ->select('locations.address_description','cities.city','vehiclebrands.brand','vehicletypes.type','offices.name','vehicles.picture_path','vehicles.price','vehicles.year','vehicles.color','vehicles.capacity','vehicles.capacity','vehicles.id',)
-            ->get();
+            ->where('vehicles.available','=',1)
+            ->paginate(12);
         // dd($vehicles);
 
         return view('home',compact('cities','brands','vehicles'));
