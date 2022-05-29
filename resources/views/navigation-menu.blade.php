@@ -4,8 +4,13 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
+                {{-- <div class="flex-shrink-0 flex items-center">
+                    <a href="{{ route('home') }}">
+                        <img src="{{ asset('image/logo.jpeg') }}" alt="image" class="w-11 h-11">
+                    </a>
+                </div> --}}
                 <div class="flex-shrink-0 flex items-center">
-                    <x-logo/>
+                        <x-jet-application-mark class="block h-9 w-auto" />
                 </div>
 
                 <!-- Navigation Links -->

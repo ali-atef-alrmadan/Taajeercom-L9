@@ -1,5 +1,5 @@
 <div class="p-4 bg-gray-200 shadow-sm" id="search">
-    <form action="{{route('search')}}" method="POST">
+    <form action="{{route('search')}}" method="GET">
         @csrf
         <div class="p-4 flex justify-center items-center gap-x-14">
             {{--Date-start--}}

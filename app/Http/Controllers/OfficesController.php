@@ -9,6 +9,7 @@ use App\Models\Cities;
 use App\Models\Countries;
 use App\Models\locations;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -90,9 +91,11 @@ class OfficesController extends Controller
      * @param  \App\Models\offices  $offices
      * @return \Illuminate\Http\Response
      */
-    public function edit(offices $offices)
+    public function updaterejecte(Request $request)
     {
-        //
+        offices::where('id',$request->Offices_id)
+            ->update(['status' => 2]);
+        return redirect()->back()->withErrors(['Office Rejected']);
     }
 
     /**

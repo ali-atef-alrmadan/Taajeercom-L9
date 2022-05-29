@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('home');
 // });
 Route::get('/',[HomeController::class,'index'])->name('home');
-Route::post('search',[HomeController::class,'search'])->name('search');
+Route::get('search',[HomeController::class,'search'])->name('search');
 
 Route::get('AddToOffice',[OfficesController::class,'index'])->name('AddToOffice');
 
@@ -36,6 +36,7 @@ Route::get('AddToOffice',[OfficesController::class,'index'])->name('AddToOffice'
         // Accept for Offices
         Route::get('AcceptforOffices',[OfficesController::class,'show'])->name('AcceptforOffices');
         Route::post('AcceptforOffices',[OfficesController::class,'update'])->name('updateAcceptforOffices');
+        Route::post('updaterejecteforOffices',[OfficesController::class,'updaterejecte'])->name('updaterejecteforOffices');
     
     });
 
