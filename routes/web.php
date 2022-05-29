@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('home');
 // });
 Route::get('/',[HomeController::class,'index'])->name('home');
+Route::post('search',[HomeController::class,'search'])->name('search');
 
 Route::get('AddToOffice',[OfficesController::class,'index'])->name('AddToOffice');
 

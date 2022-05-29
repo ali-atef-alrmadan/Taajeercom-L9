@@ -1,5 +1,5 @@
 <div class="p-4 bg-gray-200 shadow-sm" id="search">
-    <form action="" method="POST">
+    <form action="{{route('search')}}" method="POST">
         @csrf
         <div class="p-4 flex justify-center items-center gap-x-14">
             {{--Date-start--}}
@@ -10,11 +10,11 @@
                 <div class="flex gap-x-4">
                     <div class="flex flex-col">
                         <label for="date-from">From</label>
-                        <input class="p-2 rounded-md w-[12rem]" type="date" id="date-from" name="date-from">
+                        <input class="p-2 rounded-md w-[12rem]" type="date" id="date-from" name="date_from">
                     </div>
                     <div class="flex flex-col">
                         <label for="date-to">To</label>
-                        <input class="p-2 rounded-md w-[12rem]" type="date" id="date-to" name="date-to">
+                        <input class="p-2 rounded-md w-[12rem]" type="date" id="date-to" name="date_to">
                     </div>
                 </div>
             </div>
@@ -28,11 +28,11 @@
                 <div class="flex gap-x-4">
                     <div class="flex flex-col">
                         <label for="min-price">Min</label>
-                        <input class="p-2 rounded-md w-[12rem]" type="number" id="min-price" name="min-price" value="0">
+                        <input class="p-2 rounded-md w-[12rem]" type="number" id="min-price" name="min_price" value="0">
                     </div>
                     <div class="flex flex-col">
                         <label for="max-price">Max</label>
-                        <input class="p-2 rounded-md w-[12rem]" type="number" id="max-price" name="max-price" value="0">
+                        <input class="p-2 rounded-md w-[12rem]" type="number" id="max-price" name="max_price" value="0">
                     </div>
                 </div>
             </div>
